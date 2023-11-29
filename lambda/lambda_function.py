@@ -1,4 +1,4 @@
-def test(event, context):
+def test(event):
     print("-------")
     print(event["key1"])
     print(event["key2"])
