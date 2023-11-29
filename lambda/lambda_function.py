@@ -1,2 +1,2 @@
 def test():
-    print("hello lambd")
+    print("hello lambda")
