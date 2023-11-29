@@ -1,6 +1,7 @@
-def test(event):
+def test(event, context):
     print("-------")
     print(event["key1"])
     print(event["key2"])
     print(event["key3"])
     print("-------")
+    return event["key1"]
