@@ -1,1 +1,1 @@
-print("hello lambda")
+print("hello lambd")
