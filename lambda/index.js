@@ -3,4 +3,4 @@ function logValues(x, context) {
 }
 
 // logValues関数をエクスポートする
-// module.exports.logValues = logValues;
+module.exports.logValues = logValues;
