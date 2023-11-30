@@ -1,5 +1,5 @@
-const test = (lst: Array<number>) => {
-  for (const l in lst) {
-    console.log(l);
-  }
-};
+function logValues(obj) {
+  Object.values(obj).forEach((value) => {
+    console.log(value);
+  });
+}
