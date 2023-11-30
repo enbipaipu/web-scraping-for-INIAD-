@@ -3,3 +3,6 @@ function logValues(obj) {
     console.log(value);
   });
 }
+
+// logValues関数をエクスポートする
+module.exports.logValues = logValues;
