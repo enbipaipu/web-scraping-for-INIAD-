@@ -1,8 +1,6 @@
-function logValues(obj) {
-  Object.values(obj).forEach((value) => {
-    console.log(value);
-  });
+function logValues(x, context) {
+  console.log("testが通りました");
 }
 
 // logValues関数をエクスポートする
-module.exports.logValues = logValues;
+// module.exports.logValues = logValues;
