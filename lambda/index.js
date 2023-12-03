@@ -1,8 +1,7 @@
 function logValues(x) {
   console.log("testを開始します。");
-  value = ["a", "b", "c"];
+  let value = ["a", "b", "c"];
   if (x) {
-    value.splice(0);
     value = x;
   }
   for (const s in value) {
