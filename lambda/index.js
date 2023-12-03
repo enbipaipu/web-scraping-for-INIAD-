@@ -1,6 +1,10 @@
-function logValues(x, context) {
-  console.log("testが通りました");
-  for (const s in x) {
+function logValues(x) {
+  console.log("testを開始します。");
+  value = ["a", "b", "c"];
+  if (x) {
+    value = x;
+  }
+  for (const s in value) {
     console.log(s);
   }
 }
