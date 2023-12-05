@@ -10,7 +10,6 @@ function logValues(x) {
     console.log(val);
   });
 }
-logValues([100, 200, 300]);
 
 // logValues関数をエクスポートする
 module.exports.logValues = logValues;
