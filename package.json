@@ -1,7 +1,7 @@
 {
   "name": "web-scraping-for-iniad",
   "version": "1.0.0",
-  "description": "INIAD＃制作にあたり必要な関数をこの中に入っている。",
+  "description": "INIAD#制作にあたり必要な関数をこの中に入っている。",
   "main": "index.js",
   "scripts": {
     "dev": "npm run migrate:deploy --prefix server && run-p dev:*",
