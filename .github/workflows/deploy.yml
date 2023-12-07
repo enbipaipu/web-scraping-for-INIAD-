@@ -24,7 +24,7 @@ jobs:
       - name: get-caller-identity is allowed to run on role.
         run: aws sts get-caller-identity
 
-      - name: setup-python
+      - name: setup-node
         uses: actions/setup-node@v1
         with:
           node-version: 18
