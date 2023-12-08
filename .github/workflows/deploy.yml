@@ -17,8 +17,13 @@ jobs:
       - name: check changes in lambda directry
         id: check_changes
         run: |
-          echo "Changes found in lambda directory."
-          echo "changes-detected=false" >> $GITHUB_OUTPUT
+          if ${{ secrets.ifdist }}; then
+            echo "Changes found in lambda directory."
+            echo "changes-detected=true" >> $GITHUB_OUTPUT
+          else
+            echo "No changes in lambda directory."
+            echo "changes-detected=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: configure-aws-credentials
         if: ${{ steps.check_changes.outputs.changes-detected == 'true' }}
