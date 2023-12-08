@@ -18,9 +18,7 @@ jobs:
         id: check_changes
         run: |
           git diff --name-only origin/main...HEAD > changes.txt
-          cat changes.txt
-          cat changes.txt
-          if grep -q "^lambda/" changes.txt; then
+          if [ -s "changes.txt" ]; then
             echo "Changes found in lambda directory."
             echo "changes-detected=true" >> $GITHUB_OUTPUT
           else

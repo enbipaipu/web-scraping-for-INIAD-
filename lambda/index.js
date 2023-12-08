@@ -3,7 +3,7 @@ const { get_json } = require("./get_json");
 function logValues(x) {
   console.log("testを開始します。");
 
-  let value = ["a", "b", "c"];
+  let value = ["a", "b", "d"];
   if (x.length > 0) {
     value.splice(0);
     value = x;
