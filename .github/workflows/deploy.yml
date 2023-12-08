@@ -1,4 +1,4 @@
-name: AWS Lambda Deploy
+name: Management AWS Lambda Deploy
 on:
   push:
     branches:
@@ -14,10 +14,10 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
-      - name: Check for changes in lambda directory
+      - name: check changes in lambda directry
         id: check_changes
         run: |
-          git diff --name-only HEAD^ HEAD > changes.txt
+          git diff --name-only origin/main...HEAD > changes.txt
           cat changes.txt
           if grep -q "^lambda/" changes.txt; then
             echo "Changes found in lambda directory."
@@ -25,26 +25,31 @@ jobs:
           else
             echo "No changes in lambda directory."
             echo "::set-output name=changes-detected::false"
+          fi
 
-      - name: Deploy to AWS Lambda
-        if: steps.check_changes.outputs.changes-detected == 'true'
-        run: |
-          name: configure-aws-credentials
-          uses: aws-actions/configure-aws-credentials@master
-          with:
-            aws-region: ${{ secrets.AWS_REGION }}
-            role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-            role-session-name: GitHubActions
+      - name: configure-aws-credentials
+        if: ${{ steps.check_changes.outputs.changes-detected == 'true' }}
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: GitHubActions
 
       - name: get-caller-identity is allowed to run on role.
+        if: ${{ steps.check_changes.outputs.changes-detected == 'true' }}
+
         run: aws sts get-caller-identity
 
       - name: setup-node
+        if: ${{ steps.check_changes.outputs.changes-detected == 'true' }}
+
         uses: actions/setup-node@v1
         with:
           node-version: 18
 
       - name: lambda update
+        if: ${{ steps.check_changes.outputs.changes-detected == 'true' }}
+
         run: |
           pip3 install awscli
           cd lambda && zip -r package.zip ./*
