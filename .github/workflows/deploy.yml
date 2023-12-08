@@ -21,10 +21,10 @@ jobs:
           cat changes.txt
           if grep -q "^lambda/" changes.txt; then
             echo "Changes found in lambda directory."
-            echo "::set-output name=changes-detected::true"
+            echo "changes-detected=true" >> $GITHUB_OUTPUT
           else
             echo "No changes in lambda directory."
-            echo "::set-output name=changes-detected::false"
+            echo "changes-detected=false" >> $GITHUB_OUTPUT
           fi
 
       - name: configure-aws-credentials
