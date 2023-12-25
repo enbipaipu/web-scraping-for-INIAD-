@@ -13,8 +13,10 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2 # 最新のコミットとその1つ前のコミットをフェッチする
 
-      - name: check changes in lambda directry
+      - name: check changes in lambda directory
         id: check_changes
         run: |
           git fetch
@@ -22,10 +24,10 @@ jobs:
 
           if [ "$DIFF" != "" ]; then
             echo "フォルダ内で変更が見つかりました。"
-            echo "changes-detected=true" >> $GITHUB_OUTPUT
+            echo "changes-detected=true" >> $GITHUB_ENV  # 環境変数に保存
           else
             echo "フォルダ内で変更が見つかりませんでした。"
-            echo "changes-detected=false" >> $GITHUB_OUTPUT
+            echo "changes-detected=false" >> $GITHUB_ENV  # 環境変数に保存
           fi
 
       - name: configure-aws-credentials
