@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 const fs = require("fs/promises");
 
 async function get_json() {
-  console.log("tttttttttttttt");
+  console.log("tttttttttttt");
   try {
     const fetch = await import("node-fetch");
     const response = await fetch.default(
