@@ -18,7 +18,7 @@ jobs:
         id: check_changes
         run: |
           git fetch
-          DIFF=$(git diff --name-only HEAD^ HEAD -- 'web-scraping-for-INIAD#/lambda')
+          DIFF=$(git diff --name-only HEAD^ HEAD -- '/lambda')
 
           if [ "$DIFF" != "" ]; then
             echo "フォルダ内で変更が見つかりました。"
