@@ -17,11 +17,13 @@ jobs:
       - name: check changes in lambda directry
         id: check_changes
         run: |
-          if ${{ secrets.ifdist }}; then
-            echo "Changes found in lambda directory."
+          git fetch
+          DIFF = $(git diff --name-only HEAD^ HEAD --'web-scraping-for-INIAD#/lambda')
+          if [ "$DIFF" != "" ]; then
+            echo "Changes found in the folder."
             echo "changes-detected=true" >> $GITHUB_OUTPUT
           else
-            echo "No changes in lambda directory."
+            echo "No changes found in the folder."
             echo "changes-detected=false" >> $GITHUB_OUTPUT
           fi
 
