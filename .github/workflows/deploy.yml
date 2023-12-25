@@ -18,13 +18,13 @@ jobs:
         id: check_changes
         run: |
           git fetch
-          DIFF=$(git diff --name-only HEAD^ HEAD -- 'web-scraping-for-INIAD#/lambda')
+          DIFF=$(git diff --name-only HEAD~1 HEAD -- 'web-scraping-for-INIAD#/lambda')
 
           if [ "$DIFF" != "" ]; then
-            echo "Changes found in the folder."
+            echo "フォルダ内で変更が見つかりました。"
             echo "changes-detected=true" >> $GITHUB_OUTPUT
           else
-            echo "No changes found in the folder."
+            echo "フォルダ内で変更が見つかりませんでした。"
             echo "changes-detected=false" >> $GITHUB_OUTPUT
           fi
 
