@@ -4,7 +4,7 @@
   "description": "INIAD#制作にあたり必要な関数をこの中に入っている。",
   "main": "index.js",
   "scripts": {
-    "dev": " cd lambda && node get_json.js"
+    "dev": " cd lambda && node index.js"
   },
   "author": "",
   "license": "ISC",
