@@ -28,8 +28,9 @@ jobs:
           else
             echo "フォルダ内で変更が見つかりませんでした。"
             echo "changes-detected=false" >> $GITHUB_ENV  # 環境変数に保存
-          echo $changes-detected
+
           fi
+          echo ${{ env.changes-detected }}
 
       - name: configure-aws-credentials
         if: ${{ steps.check_changes.outputs.changes-detected == 'true' }}
