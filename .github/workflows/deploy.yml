@@ -3,9 +3,12 @@ on:
   push:
     branches:
       - main
+env:
+  CHANGES: false
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     permissions:
       id-token: write
       contents: read
@@ -24,16 +27,14 @@ jobs:
 
           if [ "$DIFF" != "" ]; then
             echo "フォルダ内で変更が見つかりました。"
-            echo "changes-detected=true" >> $GITHUB_ENV  # 環境変数に保存
+            echo "::set-env name=CHANGES::true" # changesをtrueに変更する
           else
             echo "フォルダ内で変更が見つかりませんでした。"
-            echo "changes-detected=false" >> $GITHUB_ENV  # 環境変数に保存
-
           fi
-          echo ${{ env.changes-detected }}
+          echo "CHANGESの値は${{env.CHANGES}}です"
 
       - name: configure-aws-credentials
-        if: ${{ steps.check_changes.outputs.changes-detected == 'true' }}
+        if: ${{ env.CHANGES == 'true' }}
         uses: aws-actions/configure-aws-credentials@master
         with:
           aws-region: ${{ secrets.AWS_REGION }}
@@ -41,17 +42,17 @@ jobs:
           role-session-name: GitHubActions
 
       - name: get-caller-identity is allowed to run on role.
-        if: ${{ steps.check_changes.outputs.changes-detected == 'true' }}
+        if: ${{ env.CHANGES == 'true' }}
         run: aws sts get-caller-identity
 
       - name: setup-node
-        if: ${{ steps.check_changes.outputs.changes-detected == 'true' }}
+        if: ${{ env.CHANGES == 'true' }}
         uses: actions/setup-node@v1
         with:
           node-version: 18
 
       - name: lambda update
-        if: ${{ steps.check_changes.outputs.changes-detected == 'true' }}
+        if: ${{ env.CHANGES == 'true' }}
         run: |
           pip3 install awscli
           cd lambda && zip -r package.zip ./*
