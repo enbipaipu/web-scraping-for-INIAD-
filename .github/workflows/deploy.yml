@@ -44,6 +44,7 @@ jobs:
       - name: get-caller-identity is allowed to run on role.
         if: ${{ env.CHANGES == 'true' }}
         run: aws sts get-caller-identity
+        echo "CHANGESの値は${{env.CHANGES}}です"
 
       - name: setup-node
         if: ${{ env.CHANGES == 'true' }}
