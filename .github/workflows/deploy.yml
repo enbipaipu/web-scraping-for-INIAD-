@@ -27,7 +27,7 @@ jobs:
 
           if [ "$DIFF" != "" ]; then
             echo "フォルダ内で変更が見つかりました。"
-            echo "::set-env name=CHANGES::true" # changesをtrueに変更する
+            echo "CHANGES=true" >> $GITHUB_ENV # changesをtrueに変更する
           else
             echo "フォルダ内で変更が見つかりませんでした。"
           fi
