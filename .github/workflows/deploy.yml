@@ -31,7 +31,6 @@ jobs:
           else
             echo "フォルダ内で変更が見つかりませんでした。"
           fi
-          echo "CHANGESの値は${{env.CHANGES}}です"
 
       - name: configure-aws-credentials
         if: ${{ env.CHANGES == 'true' }}
@@ -44,7 +43,6 @@ jobs:
       - name: get-caller-identity is allowed to run on role.
         if: ${{ env.CHANGES == 'true' }}
         run: aws sts get-caller-identity
-        echo "CHANGESの値は${{env.CHANGES}}です"
 
       - name: setup-node
         if: ${{ env.CHANGES == 'true' }}
