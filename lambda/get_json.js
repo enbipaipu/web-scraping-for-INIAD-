@@ -13,11 +13,13 @@ async function get_json() {
       "test.json",
       JSON.stringify(data.payload.blob.rawLines, null, 2)
     );
-
-    return console.log("JSON データを test.json に書き込みました。");
+    console.log("JSON データを test.json に書き込みました。");
+    return;
   } catch (error) {
     console.error("データを取得できませんでした:", error);
   }
 }
+
+get_json();
 
 module.exports.get_json = get_json;
