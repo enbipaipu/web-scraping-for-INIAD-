@@ -3,18 +3,29 @@ const fs = require("fs/promises");
 
 async function get_json() {
   console.log("get_jsonを実行します。");
+
   try {
-    const fetch = await import("node-fetch");
-    const response = await fetch.default(
-      "https://github.com/jun-eg/test-zip/blob/main/data/slide.json"
+    // GitHub APIを通じてファイルの内容を取得します
+    const getResponse = await fetch(
+      `https://api.github.com/repos/jun-eg/test-zip/contents/data/slide.json`,
+      {
+        headers: {
+          Authorization: `${process.env.SLIDE_JSON_ACCESS_TOKEN}`,
+          Accept: "application/vnd.github.v3.raw",
+        },
+      }
     );
-    const data = await response.json();
-    fs.writeFile(
-      "test.json",
-      JSON.stringify(data.payload.blob.rawLines, null, 2)
-    );
+
+    if (!getResponse.ok) {
+      throw new Error("GitHubからファイルを取得する際にエラーが発生しました。");
+    }
+
+    // テキストレスポンスとしてファイルの内容を取得します
+    const textContent = await getResponse.text();
+
+    // ファイルシステムにJSONデータとして書き込みます
+    await fs.writeFile("test.json", textContent);
     console.log("JSON データを test.json に書き込みました。");
-    return;
   } catch (error) {
     console.error("データを取得できませんでした:", error);
   }
