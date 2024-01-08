@@ -1,69 +1,81 @@
-const { error } = require("console");
 const fs = require("fs/promises");
 const fetch = require("node-fetch");
 const path = require("path");
 require("dotenv").config();
+const { Octokit } = require("@octokit/rest");
 
+function change(currentTexts) {
+  let texts; // textsを先に宣言
+  if (
+    currentTexts.charAt(0) === "[" &&
+    currentTexts.charAt(currentTexts.length - 1) === "]"
+  ) {
+    texts = currentTexts.slice(1, -1);
+  } else {
+    texts = currentTexts;
+  }
+
+  let count = 0;
+  let result = "";
+  for (const text of texts) {
+    if (text === "{") {
+      count++;
+    } else if (text === "}") {
+      count--;
+    }
+    if (count === 0 && text === ",") {
+      continue;
+    }
+    result += text;
+  }
+  return result;
+}
+
+const accessToken = `${process.env.SLIDE_JSON_ACCESS_TOKEN}`;
+
+// Octokitのインスタンスを作成
+const octokit = new Octokit({
+  auth: accessToken, // 認証トークンを設定
+});
+
+// デプロイ対象のリポジトリ情報
+const owner = "enbipaipu"; // リポジトリの所有者
+const repo = "test"; // リポジトリ名
+
+// ファイルの内容を変更
+const github_filePath = `https://api.github.com/repos/enbipaipu/test/contents/slid.json`; // 変更するファイルのパス
+
+// ファイルの変更をコミット
 async function deploy_json() {
-  console.log("jsonのデプロイを開始します");
   try {
     const filePath = path.join(__dirname, "test.json");
     const testJsonData = await fs.readFile(filePath, "utf8");
 
-    const jsonData = JSON.parse(testJsonData);
-    const contentEncoded = Buffer.from(jsonData).toString("base64");
+    const changed = change(testJsonData);
 
-    const getResponse = await fetch(
-      `https://api.github.com/repos/jun-eg/test-zip/contents/data/slide.json`,
-      {
-        headers: {
-          Authorization: "process.env.SLIDE_JSON_ACCESS_TOKEN",
-          Accept: "application/vnd.github.v3+json",
-        },
-      }
-    );
+    const jsonData = JSON.parse(changed);
+    const newFileContent = Buffer.from(jsonData).toString("base64");
 
-    const getFileData = await getResponse.json();
-    const sha = getFileData.sha;
+    const {
+      data: { sha },
+    } = await octokit.repos.getContents({ owner, repo, path: github_filePath });
 
-    const putResponse = await fetch(
-      `https://api.github.com/repos/jun-eg/test-zip/contents/data/slide.json`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: "process.env.SLIDE_JSON_ACCESS_TOKEN",
-          Accept: "application/vnd.github.v3+json",
-        },
-        body: JSON.stringify({
-          message: "slide.jsonを更新",
-          content: contentEncoded,
-          sha: sha,
-          branch: "main",
-        }),
-      }
-    );
+    // 変更内容をコミット
+    await octokit.repos.createOrUpdateFileContents({
+      owner,
+      repo,
+      path: github_filePath,
+      message: "Update file content",
+      content: newFileContent,
+      sha: sha,
+    });
 
-    if (!putResponse.ok) {
-      console.error("HTTP Status:", putResponse.status);
-      console.error("Status Text:", putResponse.statusText);
-
-      // エラーレスポンスボディをテキストとして取得
-      const errorBody = await putResponse.text();
-
-      // コンソールにエラーボディを出力
-      console.error("Error Body:", errorBody);
-
-      throw new Error(
-        `GitHubへのファイル更新に失敗しました。 Status: ${putResponse.status}`
-      );
-    }
-
-    console.log("JSON データを GitHub 上に更新しました。");
-    return;
+    console.log("File updated successfully!");
   } catch (error) {
-    console.error("データのデプロイに失敗しました:", error);
+    console.error("Error updating file:", error);
   }
 }
+
 deploy_json();
 
 module.exports.deploy_json = deploy_json;
