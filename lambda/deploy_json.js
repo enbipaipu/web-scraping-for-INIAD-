@@ -8,7 +8,7 @@ const accessToken = `${process.env.SLIDE_JSON_ACCESS_TOKEN}`;
 
 const owner = "enbipaipu";
 const repo = "test";
-const github_filePath = `https://api.github.com/repos/enbipaipu/test/contents/slid.json`;
+const github_filePath = "slid.json";
 
 async function deploy_json() {
   try {
@@ -28,14 +28,17 @@ async function deploy_json() {
       auth: accessToken,
     });
 
-    const getResponse = await fetch(github_filePath, {
-      headers: {
-        Authorization: accessToken,
-        Accept: "application/vnd.github.v3+json",
-      },
-    });
+    const getResponse = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/contents/${github_filePath}`,
+      {
+        headers: {
+          Authorization: `token ${accessToken}`,
+          Accept: "application/vnd.github.v3+json",
+        },
+      }
+    );
 
-    const getfiledata = getResponse.json();
+    const getfiledata = await getResponse.json();
 
     await octokit.repos.createOrUpdateFileContents({
       owner,

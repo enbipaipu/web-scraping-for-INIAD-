@@ -1,4 +1,4 @@
-[{
+{
   "2023": {
     "コンピュータ・サイエンス概論1 & 演習1": {
       "連絡事項": {
@@ -27,15 +27,8 @@
           "url": "https://docs.google.com/presentation/d/e/2PACX-1vSAQtF1TQz60FsxajLUk952SEd-mI6wHThrcUzGNSsEO3Hnevoe3fgSjtDYqzVKAQ/embed?start=false&loop=false&delayms=3000"
         }
       }
-    }
-  }
-},
+    },
 
-{
-  "2023":{
-    "cs1":[
-      
-
-    ]
+    "cs1": {}
   }
-}]
+}
