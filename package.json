@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@aspida/axios": "^1.14.0",
+    "@octokit/rest": "^20.0.2",
     "axios": "^1.6.2",
     "next": "^14.0.3"
   },
