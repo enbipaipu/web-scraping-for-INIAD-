@@ -7,12 +7,12 @@ const owner = "jun-eg";
 const repo = "deadline-json-fork";
 const github_filePath = "data.json";
 
-async function get_json() {
+function get_json() {
   console.log("get_jsonを実行します。");
 
   try {
     // GitHub APIを通じてファイルの内容を取得します
-    const getResponse = await fetch(
+    const getResponse = fetch(
       `https://api.github.com/repos/${owner}/${repo}/contents/${github_filePath}`,
       {
         headers: {
@@ -27,16 +27,17 @@ async function get_json() {
     }
 
     // テキストレスポンスとしてファイルの内容を取得します
-    const textContent = await getResponse.text();
+    const textContent = getResponse.text();
 
     // ファイルシステムにJSONデータとして書き込みます
-    await fs.writeFile("test.json", textContent);
+    fs.writeFile("test.json", textContent);
     console.log("JSON データを test.json に書き込みました。");
   } catch (error) {
     console.error("データを取得できませんでした:", error);
   }
 }
 
-get_json();
+//get_json単体を動かすときはコメントアウトを解除する。
+// get_json();
 
 module.exports.get_json = get_json;

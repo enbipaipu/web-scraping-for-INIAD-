@@ -55,6 +55,4 @@ async function deploy_json() {
   }
 }
 
-deploy_json();
-
 module.exports.deploy_json = deploy_json;
