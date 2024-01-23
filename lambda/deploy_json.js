@@ -1,8 +1,8 @@
-const fs = require("fs/promises");
 const fetch = require("node-fetch");
 const path = require("path");
 require("dotenv").config();
 const { Octokit } = require("@octokit/rest");
+const { readFileSync } = require("fs");
 
 const accessToken = `${process.env.SLIDE_JSON_ACCESS_TOKEN}`;
 
@@ -12,8 +12,7 @@ const github_filePath = "slid.json";
 
 async function deploy_json() {
   try {
-    const filePath = path.join(__dirname, "save_info.json");
-    const testJsonData = await fs.readFile(filePath, "utf8");
+    const testJsonData = readFileSync("save_info.json", "utf8");
 
     const jsonData = JSON.parse(testJsonData);
     const newDataToSendToGitHub = {
