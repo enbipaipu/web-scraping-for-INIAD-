@@ -12,7 +12,7 @@ const github_filePath = "slid.json";
 
 async function deploy_json() {
   try {
-    const filePath = path.join(__dirname, "test.json");
+    const filePath = path.join(__dirname, "save_info.json");
     const testJsonData = await fs.readFile(filePath, "utf8");
 
     const jsonData = JSON.parse(testJsonData);
@@ -54,5 +54,7 @@ async function deploy_json() {
     console.error("Error:", error);
   }
 }
+
+deploy_json();
 
 module.exports.deploy_json = deploy_json;

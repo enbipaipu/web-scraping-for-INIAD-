@@ -1,5 +1,5 @@
-const fetch = require("node-fetch");
-const fs = require("fs/promises");
+const { writeFileSync } = require("fs");
+const { default: fetch } = require("node-fetch");
 
 const accessToken = `${process.env.SLIDE_JSON_ACCESS_TOKEN}`;
 
@@ -7,12 +7,12 @@ const owner = "jun-eg";
 const repo = "deadline-json-fork";
 const github_filePath = "data.json";
 
-function get_json() {
+async function get_json() {
   console.log("get_jsonを実行します。");
 
   try {
     // GitHub APIを通じてファイルの内容を取得します
-    const getResponse = fetch(
+    const getResponse = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/contents/${github_filePath}`,
       {
         headers: {
@@ -27,17 +27,17 @@ function get_json() {
     }
 
     // テキストレスポンスとしてファイルの内容を取得します
-    const textContent = getResponse.text();
+    const textContent = await getResponse.text();
 
     // ファイルシステムにJSONデータとして書き込みます
-    fs.writeFile("test.json", textContent);
-    console.log("JSON データを test.json に書き込みました。");
+    writeFileSync("save_info.json", textContent);
+    console.log("JSON データを save_info.json に書き込みました。");
   } catch (error) {
     console.error("データを取得できませんでした:", error);
   }
 }
 
 //get_json単体を動かすときはコメントアウトを解除する。
-// get_json();
+get_json();
 
 module.exports.get_json = get_json;
