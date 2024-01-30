@@ -12,7 +12,9 @@
     "@aspida/axios": "^1.14.0",
     "@octokit/rest": "^20.0.2",
     "axios": "^1.6.2",
-    "next": "^14.0.3"
+    "cheerio": "^1.0.0-rc.12",
+    "next": "^14.0.3",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "@types/node": "^20.10.1",
