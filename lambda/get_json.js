@@ -1,5 +1,5 @@
-const { writeFileSync } = require("fs");
-const { default: fetch } = require("node-fetch");
+import { writeFileSync } from "fs";
+import fetch from "node-fetch";
 
 const accessToken = `${process.env.SLIDE_JSON_ACCESS_TOKEN}`;
 
@@ -40,4 +40,4 @@ async function get_json() {
 //get_json単体を動かすときはコメントアウトを解除する。
 get_json();
 
-module.exports.get_json = get_json;
+export { get_json };

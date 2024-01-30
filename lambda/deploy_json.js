@@ -1,8 +1,9 @@
-const fetch = require("node-fetch");
-const path = require("path");
-require("dotenv").config();
-const { Octokit } = require("@octokit/rest");
-const { readFileSync } = require("fs");
+import dotenv from "dotenv";
+dotenv.config();
+
+import fetch from "node-fetch";
+import { Octokit } from "@octokit/rest";
+import { readFileSync } from "fs";
 
 const accessToken = `${process.env.SLIDE_JSON_ACCESS_TOKEN}`;
 
@@ -11,6 +12,7 @@ const repo = "test";
 const github_filePath = "slid.json";
 
 async function deploy_json() {
+  console.log("デプロイを開始します");
   try {
     const testJsonData = readFileSync("save_info.json", "utf8");
 
@@ -56,4 +58,4 @@ async function deploy_json() {
 
 deploy_json();
 
-module.exports.deploy_json = deploy_json;
+export { deploy_json };

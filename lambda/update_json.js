@@ -1,5 +1,5 @@
-const { default: axios } = require("axios");
-const { load } = require("cheerio");
+import axios from "axios";
+import { load } from "cheerio";
 
 async function scrape(url) {
   try {
@@ -22,4 +22,4 @@ async function update_json() {
 
 update_json();
 
-module.exports.update_json = update_json;
+export { update_json };

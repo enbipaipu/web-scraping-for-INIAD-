@@ -2,6 +2,7 @@
   "name": "web-scraping-for-iniad",
   "version": "1.0.0",
   "description": "INIAD#制作にあたり必要な関数をこの中に入っている。",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": " cd lambda && node main.js"
