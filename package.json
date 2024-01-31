@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "INIAD#制作にあたり必要な関数をこの中に入っている。",
   "type": "module",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
     "dev": " cd lambda && node main.js"
   },
