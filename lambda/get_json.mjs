@@ -7,7 +7,7 @@ const owner = "jun-eg";
 const repo = "deadline-json-fork";
 const github_filePath = "data.json";
 
-async function get_json() {
+export async function get_json() {
   console.log("get_jsonを実行します。");
 
   try {
@@ -39,5 +39,3 @@ async function get_json() {
 
 //get_json単体を動かすときはコメントアウトを解除する。
 get_json();
-
-export { get_json };

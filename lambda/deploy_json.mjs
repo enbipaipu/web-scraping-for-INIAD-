@@ -11,7 +11,7 @@ const owner = "enbipaipu";
 const repo = "test";
 const github_filePath = "slid.json";
 
-async function deploy_json() {
+export async function deploy_json() {
   console.log("デプロイを開始します");
   try {
     const testJsonData = readFileSync("save_info.json", "utf8");
@@ -57,5 +57,3 @@ async function deploy_json() {
 }
 
 deploy_json();
-
-export { deploy_json };
