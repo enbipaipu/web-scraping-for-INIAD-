@@ -27,10 +27,10 @@ async function get_json() {
     }
 
     // テキストレスポンスとしてファイルの内容を取得します
-    const textContent = "test11111";
+    const textContent = await getResponse.text();
 
     // ファイルシステムにJSONデータとして書き込みます
-    writeFileSync("save_info.json", textContent);
+    // writeFileSync("save_info.json", textContent);
     console.log("JSON データを save_info.json に書き込みました。");
   } catch (error) {
     console.error("データを取得できませんでした:", error);
