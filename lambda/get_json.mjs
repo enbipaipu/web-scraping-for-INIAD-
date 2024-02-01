@@ -4,8 +4,8 @@ import fetch from "node-fetch";
 const accessToken = `${process.env.SLIDE_JSON_ACCESS_TOKEN}`;
 
 const owner = "jun-eg";
-const repo = "deadline-json-fork";
-const github_filePath = "data.json";
+const repo = "test-zip";
+const github_filePath = "data/slide.json";
 
 export async function get_json() {
   console.log("get_jsonを実行します。");
@@ -32,6 +32,7 @@ export async function get_json() {
     // ファイルシステムにJSONデータとして書き込みます
     // writeFileSync("save_info.json", textContent);
     console.log("JSON データを 取得しました。");
+    console.log(textContent);
     return textContent;
   } catch (error) {
     console.error("データを取得できませんでした:", error);

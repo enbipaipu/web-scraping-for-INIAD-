@@ -53,3 +53,5 @@ export async function deploy_json(json) {
     console.error("Error:", error);
   }
 }
+
+deploy_json({});
