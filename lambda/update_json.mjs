@@ -13,12 +13,12 @@ async function scrape(url) {
   }
 }
 
-export async function update_json() {
+export async function update_json(json) {
   console.log("jsonのアップデートを行います。");
   scrape("https://moocs.iniad.org/courses");
 
   console.log("jsonのアップデートが終了しました");
-  return;
+  return json;
 }
 
 update_json();
