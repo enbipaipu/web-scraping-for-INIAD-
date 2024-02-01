@@ -1,6 +1,6 @@
-import { get_json } from "./get_json.js";
-import { update_json } from "./update_json.js";
-import { deploy_json } from "./deploy_json.js";
+import { get_json } from "./get_json.mjs";
+import { update_json } from "./update_json.mjs";
+import { deploy_json } from "./deploy_json.mjs";
 
 async function main() {
   console.log("mainを実行します");
