@@ -30,9 +30,8 @@ export async function get_json() {
     const textContent = await getResponse.text();
 
     // ファイルシステムにJSONデータとして書き込みます
-    // writeFileSync("save_info.json", textContent);
     console.log("JSON データを 取得しました。");
-    console.log(textContent);
+
     return textContent;
   } catch (error) {
     console.error("データを取得できませんでした:", error);

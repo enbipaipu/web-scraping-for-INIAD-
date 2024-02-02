@@ -3,7 +3,6 @@ dotenv.config();
 
 import fetch from "node-fetch";
 import { Octokit } from "@octokit/rest";
-import { readFileSync } from "fs";
 
 const accessToken = `${process.env.SLIDE_JSON_ACCESS_TOKEN}`;
 
@@ -13,15 +12,13 @@ const github_filePath = "slid.json";
 
 export async function deploy_json(json) {
   console.log("デプロイを開始します");
-  try {
-    const jsonData = json;
-    const newDataToSendToGitHub = {
-      jsonData,
-    };
+  console.log(json);
 
-    const githubData = Buffer.from(
-      JSON.stringify(newDataToSendToGitHub)
-    ).toString("base64");
+  console.log("---------------");
+  const changed_json = JSON.parse(json);
+  console.log(changed_json);
+  try {
+    const newDataToSendToGitHub = JSON.stringify(changed_json, null, 2);
 
     const octokit = new Octokit({
       auth: accessToken,
@@ -44,14 +41,12 @@ export async function deploy_json(json) {
       repo,
       path: github_filePath,
       message: "Update data file",
-      content: githubData,
+      content: Buffer.from(newDataToSendToGitHub).toString("base64"),
       sha: getfiledata.sha,
     });
 
-    console.log("Data sent to GitHub successfully!");
+    console.log("データが正常にGitHubに送信されました!");
   } catch (error) {
-    console.error("Error:", error);
+    console.error("エラー:", error);
   }
 }
-
-deploy_json({});
