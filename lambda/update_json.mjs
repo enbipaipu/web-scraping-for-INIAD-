@@ -14,11 +14,14 @@ async function scrape(url) {
 }
 
 export async function update_json(json) {
+  if (json === undefined) return;
   console.log("jsonのアップデートを行います。");
+
   scrape("https://moocs.iniad.org/courses");
 
   console.log("jsonのアップデートが終了しました");
-  return json;
+  const JSON_CHANGE = JSON.parse(json);
+  return [JSON_CHANGE, true];
 }
 
 update_json();

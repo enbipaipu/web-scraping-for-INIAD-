@@ -1,4 +1,3 @@
-import { writeFileSync } from "fs";
 import fetch from "node-fetch";
 
 const accessToken = `${process.env.SLIDE_JSON_ACCESS_TOKEN}`;
@@ -27,7 +26,7 @@ export async function get_json() {
     }
 
     // テキストレスポンスとしてファイルの内容を取得します
-    const textContent = await getResponse.text();
+    const textContent = getResponse.text();
 
     // ファイルシステムにJSONデータとして書き込みます
     console.log("JSON データを 取得しました。");
