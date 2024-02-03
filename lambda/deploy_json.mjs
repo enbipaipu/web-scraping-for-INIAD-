@@ -11,10 +11,11 @@ const owner = "enbipaipu";
 const repo = "test";
 const github_filePath = "slid.json";
 
-export async function deploy_json(json, is_) {
-  if (json === undefined || !is_) return;
+export async function deploy_json(json, is_finish) {
+  if (json === undefined || !is_finish) return;
+
   console.log(inspect(json, { showHidden: false, depth: null }));
-  console.log("boolean: ", is_);
+  console.log("boolean: ", is_finish);
   console.log("デプロイを開始します");
 
   try {

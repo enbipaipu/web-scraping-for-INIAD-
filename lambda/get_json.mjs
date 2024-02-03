@@ -6,11 +6,11 @@ const owner = "jun-eg";
 const repo = "test-zip";
 const github_filePath = "data/slide.json";
 
+// GitHub APIを使ってjsonの情報を取得する関数。
 export async function get_json() {
   console.log("get_jsonを実行します。");
 
   try {
-    // GitHub APIを通じてファイルの内容を取得します
     const getResponse = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/contents/${github_filePath}`,
       {
@@ -25,10 +25,8 @@ export async function get_json() {
       throw new Error("GitHubからファイルを取得する際にエラーが発生しました。");
     }
 
-    // テキストレスポンスとしてファイルの内容を取得します
-    const textContent = getResponse.text();
+    const textContent = await getResponse.text();
 
-    // ファイルシステムにJSONデータとして書き込みます
     console.log("JSON データを 取得しました。");
 
     return textContent;

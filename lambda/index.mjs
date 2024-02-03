@@ -4,10 +4,15 @@ import { deploy_json } from "./deploy_json.mjs";
 
 export async function main() {
   console.log("mainを実行します");
-  const JsonData = await get_json(); //jsonから保存済みのURLの情報を取得する関数。
-  const UpdateJson = await update_json(JsonData); //infoにないURLをmoocsから取得する関数
 
-  await deploy_json(UpdateJson[0], UpdateJson[1]); //new_infoをjsonにデプロイする関数。
+  const CurrentData = await get_json();
+
+  const UpdateExecutionData = await update_json(CurrentData);
+
+  const NewData = UpdateExecutionData[0];
+  const isFinishUpdate = UpdateExecutionData[1];
+
+  await deploy_json(NewData, isFinishUpdate); //new_infoをjsonにデプロイする関数。
   console.log("mainを終了します");
 }
 

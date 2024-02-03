@@ -13,8 +13,10 @@ async function scrape(url) {
   }
 }
 
+//jsonにないURLをmoocsから取得する関数
 export async function update_json(json) {
   if (json === undefined) return;
+
   console.log("jsonのアップデートを行います。");
 
   scrape("https://moocs.iniad.org/courses");
