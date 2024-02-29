@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
-    "outDir": "./lambda/dist",
+    "outDir": "./compiled_files",
     "rootDir": "./lambda",
     "strict": true,
     "esModuleInterop": true,
@@ -11,6 +11,6 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["lambda/**/*"],
+  "include": ["./lambda/**/*.ts", "lambda/deploy_json.mjs"],
   "exclude": ["node_modules", "**/*.spec.ts", "lambda/save_info.json"]
 }

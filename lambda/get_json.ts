@@ -1,13 +1,13 @@
 import fetch from "node-fetch";
 
-const accessToken = `${process.env.SLIDE_JSON_ACCESS_TOKEN}`;
+const accessToken: string = `${process.env.SLIDE_JSON_ACCESS_TOKEN}`;
 
-const owner = "jun-eg";
-const repo = "test-zip";
-const github_filePath = "data/slide.json";
+const owner: string = "jun-eg";
+const repo: string = "test-zip";
+const github_filePath: string = "data/slide.json";
 
 // GitHub APIを使ってjsonの情報を取得する関数。
-export async function get_json() {
+export async function get_json(): Promise<string | undefined> {
   console.log("get_jsonを実行します。");
 
   try {
@@ -25,13 +25,13 @@ export async function get_json() {
       throw new Error("GitHubからファイルを取得する際にエラーが発生しました。");
     }
 
-    const textContent = await getResponse.text();
-
+    const textContent: string = await getResponse.text();
     console.log("JSON データを 取得しました。");
-
+    console.log(textContent);
     return textContent;
   } catch (error) {
     console.error("データを取得できませんでした:", error);
+    return undefined;
   }
 }
 

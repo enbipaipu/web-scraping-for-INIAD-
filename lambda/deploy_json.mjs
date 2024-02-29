@@ -1,14 +1,11 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import fetch from "node-fetch";
 import { Octokit } from "@octokit/rest";
 import { inspect } from "util";
 
 const accessToken = `${process.env.SLIDE_JSON_ACCESS_TOKEN}`;
 
-const owner = "enbipaipu";
-const repo = "test";
+const Owner = "enbipaipu";
+const Repo = "test";
 const github_filePath = "slid.json";
 
 export async function deploy_json(json, is_finish) {
@@ -21,29 +18,30 @@ export async function deploy_json(json, is_finish) {
   try {
     const newDataToSendToGitHub = JSON.stringify(json, null, 2);
 
-    const octokit = new Octokit({
-      auth: accessToken,
-    });
-
     const getResponse = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/contents/${github_filePath}`,
+      `https://api.github.com/repos/${Owner}/${Repo}/contents/${github_filePath}`,
       {
         headers: {
-          Authorization: `token ${accessToken}`,
+          Authorization: ` ${accessToken}`,
           Accept: "application/vnd.github.v3+json",
         },
       }
     );
-
     const getfiledata = await getResponse.json();
 
+    console.log(await getfiledata);
+
+    const octokit = new Octokit({
+      auth: accessToken,
+    });
+    console.log("-------------");
     await octokit.repos.createOrUpdateFileContents({
-      owner,
-      repo,
+      owner: Owner,
+      repo: Repo,
       path: github_filePath,
       message: "Update data file",
       content: Buffer.from(newDataToSendToGitHub).toString("base64"),
-      sha: getfiledata.sha,
+      sha: await getfiledata.sha,
     });
 
     console.log("データが正常にGitHubに送信されました!");
@@ -51,3 +49,4 @@ export async function deploy_json(json, is_finish) {
     console.error("エラー:", error);
   }
 }
+deploy_json("", true);

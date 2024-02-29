@@ -1,7 +1,7 @@
 import axios from "axios";
 import { load } from "cheerio";
 
-async function scrape(url) {
+async function scrape(url: string) {
   try {
     const response = await axios.get(url);
     const $ = load(response.data);
@@ -14,9 +14,10 @@ async function scrape(url) {
 }
 
 //jsonにないURLをmoocsから取得する関数
-export async function update_json(json) {
-  if (json === undefined) return;
-
+export async function update_json(
+  json: string | undefined
+): Promise<[string, boolean] | [undefined, false]> {
+  if (json === undefined) return [undefined, false];
   console.log("jsonのアップデートを行います。");
 
   scrape("https://moocs.iniad.org/courses");
@@ -26,4 +27,4 @@ export async function update_json(json) {
   return [JSON_CHANGE, true];
 }
 
-update_json();
+update_json('{"key": "value"}');

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "INIAD#制作にあたり必要な関数をこの中に入っている。",
   "main": "index.mjs",
+  "type": "module",
   "scripts": {
     "dev": " cd lambda && node index.mjs"
   },
@@ -11,6 +12,7 @@
   "dependencies": {
     "@aspida/axios": "^1.14.0",
     "@octokit/rest": "^20.0.2",
+    "arg": "^5.0.2",
     "axios": "^1.6.2",
     "cheerio": "^1.0.0-rc.12",
     "next": "^14.0.3",
@@ -28,7 +30,7 @@
     "node-fetch": "^2.6.6",
     "prettier": "^3.1.0",
     "prettier-plugin-organize-imports": "^3.2.4",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.2",
     "vite-tsconfig-paths": "^4.2.1",
     "vitest": "^0.34.6"

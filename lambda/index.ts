@@ -1,5 +1,5 @@
-import { get_json } from "./get_json.mjs";
-import { update_json } from "./update_json.mjs";
+import { get_json } from "./get_json.js";
+import { update_json } from "./update_json.js";
 import { deploy_json } from "./deploy_json.mjs";
 
 export async function main() {
